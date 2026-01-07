@@ -39,7 +39,6 @@ const WorldClock = ({ language }) => {
 
   return (
     <div className="world-clock">
-      <div className="clock-pulse"></div>
       <img
         src={getFlagImg(language)}
         alt={language}
