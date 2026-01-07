@@ -82,7 +82,7 @@ const Footer = () => {
             <div className="footer-bottom">
                 <div className="container footer-bottom-content">
                     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
-                        <p>&copy; {new Date().getFullYear()} <Link to="/admin" style={{ color: 'inherit', textDecoration: 'none' }}>Datasite Academy</Link>. {t.footer.rights}</p>
+                        <p>&copy; {new Date().getFullYear()} <Link to="/admin" style={{ color: 'inherit', textDecoration: 'none' }}>Datasite</Link> <Link to="/monitoring" style={{ color: 'inherit', textDecoration: 'none' }}>Academy</Link>. {t.footer.rights}</p>
                     </div>
                     <div className="footer-bottom-links">
                         <a href="#">{t.footer.legal.privacy}</a>
