@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaTelegram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
@@ -80,7 +81,9 @@ const Footer = () => {
 
             <div className="footer-bottom">
                 <div className="container footer-bottom-content">
-                    <p>&copy; {new Date().getFullYear()} Datasite Academy. {t.footer.rights}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
+                        <p>&copy; {new Date().getFullYear()} <Link to="/admin" style={{ color: 'inherit', textDecoration: 'none' }}>Datasite Academy</Link>. {t.footer.rights}</p>
+                    </div>
                     <div className="footer-bottom-links">
                         <a href="#">{t.footer.legal.privacy}</a>
                         <a href="#">{t.footer.legal.terms}</a>

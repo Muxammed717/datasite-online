@@ -17,7 +17,7 @@ const MonitoringDashboard = () => {
         activeCourses: 0,
         paidCount: 0,
 
-        
+
         unpaidCount: 0,
         courseDistribution: {},
         groupPerformance: []
@@ -31,7 +31,20 @@ const MonitoringDashboard = () => {
         const students = storedStudents ? JSON.parse(storedStudents) : initialStudents;
 
         const storedGroups = localStorage.getItem('datasite_groups');
-        const groups = storedGroups ? JSON.parse(storedGroups) : [];
+        let groups = [];
+        if (storedGroups) {
+            groups = JSON.parse(storedGroups);
+        } else {
+            groups = coursesData.map(c => ({
+                id: `GRP${c.id}`,
+                name: `${c.title} - ${c.instructor}`,
+                courseId: c.id,
+                courseTitle: c.title,
+                teacherName: c.instructor,
+                revenue: 0
+            }));
+            localStorage.setItem('datasite_groups', JSON.stringify(groups));
+        }
 
         const paid = students.filter(s => s.status === 'paid');
         const dist = {};

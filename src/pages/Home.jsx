@@ -18,7 +18,7 @@ const RoadmapStep = ({ icon: Icon, title, desc, stepNumber }) => (
     </div>
 );
 
-const MainBanner = ({ t }) => {
+const MainBanner = ({ t, language }) => {
     const [activePhrase, setActivePhrase] = useState(0);
     const phrases = t.home.hero.keywords;
 
@@ -29,6 +29,11 @@ const MainBanner = ({ t }) => {
         return () => clearInterval(interval);
     }, [phrases.length]);
 
+    // Reset active phrase when language changes to avoid out-of-bounds index
+    useEffect(() => {
+        setActivePhrase(0);
+    }, [language]);
+
     return (
         <section className="banner-wrap">
             <Snowfall />
@@ -38,7 +43,7 @@ const MainBanner = ({ t }) => {
                 <div className="glow-orb orb-3"></div>
             </div>
             <div className="container banner-inner">
-                <h1 className="banner-heading">
+                <h1 className="banner-heading" data-lang={language}>
                     <span className="lead-text">{t.home.hero.titlePrefix}</span>
                     <div className="phrase-slider">
                         {phrases.map((phrase, idx) => (
@@ -63,7 +68,9 @@ const MainBanner = ({ t }) => {
 };
 
 const Home = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    console.log('Current Language:', language);
+    console.log('Current Translations (t):', t);
 
     const ROADMAP_STEPS = [
         { icon: FaRocket, title: t.home.path.step1, desc: t.home.path.step1Desc },
@@ -74,7 +81,7 @@ const Home = () => {
 
     return (
         <div className="home-layout">
-            <MainBanner t={t} />
+            <MainBanner t={t} language={language} />
 
             <section className="academy-roadmap">
                 <div className="container">

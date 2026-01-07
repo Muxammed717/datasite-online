@@ -13,6 +13,7 @@ export const coursesData = [
         id: 1,
         title: 'Kompyuter savodxonligi',
         titleEn: 'Computer Literacy',
+        titleRu: 'Компьютерная грамотность',
         instructor: 'Zokirjon Ahmadqulov',
         instructorSlug: 'datasite-ustozi',
         instructorBio: {
@@ -44,6 +45,7 @@ export const coursesData = [
         id: 2,
         title: 'Front-end Dasturlash',
         titleEn: 'Front-end Development',
+        titleRu: 'Frontend Разработка',
         instructor: 'Sardorbek Daminov ',
         instructorSlug: 'frontend-eksperti',
         instructorBio: {
@@ -75,6 +77,7 @@ export const coursesData = [
         id: 3,
         title: 'Backend Dasturlash',
         titleEn: 'Backend Development',
+        titleRu: 'Backend Разработка',
         instructor: 'Backend Senyori',
         instructorSlug: 'backend-senyori',
         instructorBio: {
@@ -106,6 +109,7 @@ export const coursesData = [
         id: 4,
         title: 'Full Stack Dasturlash',
         titleEn: 'Full Stack Development',
+        titleRu: 'Fullstack Разработка',
         instructor: 'Ilyosbek Habibullayev',
         instructorSlug: 'senior-mentor',
         instructorBio: {
@@ -137,6 +141,7 @@ export const coursesData = [
         id: 6,
         title: 'Buxgalteriya',
         titleEn: 'Accounting',
+        titleRu: 'Бухгалтерия',
         instructor: 'Bosh Hisobchi',
         instructorSlug: 'bosh-hisobchi',
         instructorBio: {
@@ -167,6 +172,7 @@ export const coursesData = [
         id: 8,
         title: 'Ingliz tili',
         titleEn: 'English Language',
+        titleRu: 'Английский язык',
         instructor: 'Salohiddin Obidov',
         instructorSlug: 'ielts-instruktori',
         instructorBio: {
@@ -199,6 +205,7 @@ export const coursesData = [
         id: 9,
         title: 'Koreys tili',
         titleEn: 'Korean Language',
+        titleRu: 'Корейский язык',
         instructor: 'Osimxon Rahimjanov',
         instructorSlug: 'koreys-mutaxassisi',
         instructorBio: {
@@ -230,6 +237,7 @@ export const coursesData = [
         id: 10,
         title: 'Nemis tili',
         titleEn: 'German Language',
+        titleRu: 'Немецкий язык',
         instructor: 'Nemis Tili O\'qituvchisi',
         instructorSlug: 'nemis-tili-oqituvchisi',
         instructorBio: {

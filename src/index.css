@@ -127,3 +127,13 @@ ul {
   background-color: var(--primary);
   color: white;
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+}
