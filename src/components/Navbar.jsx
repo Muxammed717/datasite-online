@@ -124,19 +124,6 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/news" className="nav-link" onClick={toggleMenu}>{t.nav.news}</Link>
           </li>
-          <li className="nav-item">
-            <div className="mobile-lang-grid">
-              <div className={`mobile-lang-option ${language === 'uz' ? 'active' : ''}`} onClick={() => { changeLanguage('uz'); toggleMenu(); }}>
-                UZ
-              </div>
-              <div className={`mobile-lang-option ${language === 'ru' ? 'active' : ''}`} onClick={() => { changeLanguage('ru'); toggleMenu(); }}>
-                RU
-              </div>
-              <div className={`mobile-lang-option ${language === 'en' ? 'active' : ''}`} onClick={() => { changeLanguage('en'); toggleMenu(); }}>
-                EN
-              </div>
-            </div>
-          </li>
 
           <li className="nav-item">
             <Link to="/enrollment" className="btn btn-primary nav-btn" onClick={toggleMenu}>{t.nav.enroll}</Link>

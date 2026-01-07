@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { FaPlay, FaPause } from 'react-icons/fa';
+
 import './News.css';
 
 const News = () => {

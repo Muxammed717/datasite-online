@@ -108,7 +108,11 @@ const translations = {
             teacher: 'O\'qituvchi',
             groupName: 'Guruh Nomi',
             groupRevenue: 'Guruh Tushumi',
-            groupStudents: 'Guruh O\'quvchilari'
+            groupStudents: 'Guruh O\'quvchilari',
+            month: 'Oy',
+            comment: 'Izoh',
+            paymentFor: 'To\'lov oyi',
+            months: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr']
         },
         monitoring: {
             title: 'Monitoring Tizimi',
@@ -359,7 +363,11 @@ const translations = {
             teacher: 'Учитель',
             groupName: 'Название Группы',
             groupRevenue: 'Выручка Группы',
-            groupStudents: 'Студенты Группы'
+            groupStudents: 'Студенты Группы',
+            month: 'Месяц',
+            comment: 'Комментарий',
+            paymentFor: 'Месяц оплаты',
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
         },
         monitoring: {
             title: 'Система Мониторинга',
@@ -610,7 +618,11 @@ const translations = {
             teacher: 'Teacher',
             groupName: 'Group Name',
             groupRevenue: 'Group Revenue',
-            groupStudents: 'Group Students'
+            groupStudents: 'Group Students',
+            month: 'Month',
+            comment: 'Comment',
+            paymentFor: 'Payment For',
+            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         },
         monitoring: {
             title: 'Monitoring System',

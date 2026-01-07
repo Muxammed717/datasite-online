@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     const [searchResult, setSearchResult] = useState(null);
     const [searchError, setSearchError] = useState(false);
 
-    const [paymentModal, setPaymentModal] = useState({ show: false, id: null, amount: '500000', studentName: '' });
+    const [paymentModal, setPaymentModal] = useState({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' });
     const [receiptModal, setReceiptModal] = useState({ show: false, receipt: null });
     const [historyModal, setHistoryModal] = useState({ show: false, studentId: null });
     const [deleteModal, setDeleteModal] = useState({ show: false, id: null, type: 'student' });
@@ -156,7 +156,9 @@ const AdminDashboard = () => {
     };
 
     const handleMarkPaid = (id, name) => {
-        setPaymentModal({ show: true, id: id, amount: '500000', studentName: name });
+        const currentMonthIndex = new Date().getMonth();
+        const currentMonthName = t.admin.months[currentMonthIndex];
+        setPaymentModal({ show: true, id: id, amount: '500000', studentName: name, month: currentMonthName, comment: '' });
     };
 
     const startEditGroup = (group) => {
@@ -194,10 +196,12 @@ const AdminDashboard = () => {
             studentName: paymentModal.studentName,
             amount: amount,
             date: today,
-            course: studentRef.course
+            course: studentRef.course,
+            month: paymentModal.month,
+            comment: paymentModal.comment
         };
         saveHistory(receipt);
-        setPaymentModal({ show: false, id: null, amount: '500000', studentName: '' });
+        setPaymentModal({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' });
         setReceiptModal({ show: true, receipt: receipt });
     };
 
@@ -460,18 +464,22 @@ const AdminDashboard = () => {
                                     <thead style={{ position: 'sticky', top: 0, backgroundColor: 'var(--bg-main)' }}>
                                         <tr style={{ borderBottom: '2px solid var(--border)', textAlign: 'left' }}>
                                             <th style={{ padding: '0.75rem' }}>{t.admin.date}</th>
+                                            <th style={{ padding: '0.75rem' }}>{t.admin.month}</th>
                                             <th style={{ padding: '0.75rem' }}>{t.admin.amount}</th>
+                                            <th style={{ padding: '0.75rem' }}>{t.admin.comment}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {paymentHistory.filter(h => h.studentId === historyModal.studentId).map(h => (
                                             <tr key={h.id} style={{ borderBottom: '1px solid var(--border)' }}>
                                                 <td style={{ padding: '0.75rem' }}>{h.date}</td>
+                                                <td style={{ padding: '0.75rem', fontWeight: 600 }}>{h.month || '—'}</td>
                                                 <td style={{ padding: '0.75rem', fontWeight: 700, color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(h.amount)}</td>
+                                                <td style={{ padding: '0.75rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{h.comment || '—'}</td>
                                             </tr>
                                         ))}
                                         {paymentHistory.filter(h => h.studentId === historyModal.studentId).length === 0 && (
-                                            <tr><td colSpan="2" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>To'lovlar topilmadi</td></tr>
+                                            <tr><td colSpan="4" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>To'lovlar topilmadi</td></tr>
                                         )}
                                     </tbody>
                                 </table>
@@ -485,14 +493,40 @@ const AdminDashboard = () => {
                     <div className="modal-overlay" style={modalOverlayStyle}>
                         <div className="modal-content" style={modalContentStyle}>
                             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>{t.admin.markPaid}</h3>
-                            <p style={{ color: '#64748b', marginBottom: '2rem' }}>{paymentModal.studentName}</p>
-                            <div style={{ position: 'relative', marginBottom: '2.5rem' }}>
-                                <input type="text" autoFocus value={new Intl.NumberFormat('uz-UZ').format(paymentModal.amount)} onChange={e => setPaymentModal({ ...paymentModal, amount: e.target.value.replace(/\D/g, '') })} style={amountInputStyle} />
-                                <span style={currencyLabel}>UZS</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '1rem' }}>
-                                <button onClick={() => setPaymentModal({ show: false, id: null, amount: '500000', studentName: '' })} className="btn btn-outline" style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
-                                <button onClick={confirmPayment} className="btn btn-primary" style={{ flex: 1, backgroundColor: '#10b981' }}>{t.admin.saveBtn}</button>
+                            <p style={{ color: '#64748b', marginBottom: '1.5rem' }}>{paymentModal.studentName}</p>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                                <div style={{ position: 'relative' }}>
+                                    <input type="text" autoFocus value={new Intl.NumberFormat('uz-UZ').format(paymentModal.amount)} onChange={e => setPaymentModal({ ...paymentModal, amount: e.target.value.replace(/\D/g, '') })} style={amountInputStyle} />
+                                    <span style={currencyLabel}>UZS</span>
+                                </div>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>{t.admin.paymentFor}</label>
+                                        <select
+                                            value={paymentModal.month}
+                                            onChange={e => setPaymentModal({ ...paymentModal, month: e.target.value })}
+                                            style={{ ...inputStyle, width: '100%' }}
+                                        >
+                                            {t.admin.months.map(m => <option key={m} value={m}>{m}</option>)}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>{t.admin.comment}</label>
+                                        <textarea
+                                            placeholder="..."
+                                            value={paymentModal.comment}
+                                            onChange={e => setPaymentModal({ ...paymentModal, comment: e.target.value })}
+                                            style={{ ...inputStyle, width: '100%', minHeight: '80px', resize: 'vertical' }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                                    <button onClick={() => setPaymentModal({ show: false, id: null, amount: '500000', studentName: '', month: '', comment: '' })} className="btn btn-outline" style={{ flex: 1 }}>{t.admin.cancelBtn}</button>
+                                    <button onClick={confirmPayment} className="btn btn-primary" style={{ flex: 1, backgroundColor: '#10b981' }}>{t.admin.saveBtn}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -508,8 +542,12 @@ const AdminDashboard = () => {
                                 <div style={receiptRow}><span>{t.admin.id}:</span> <strong>{receiptModal.receipt.studentId}</strong></div>
                                 <div style={receiptRow}><span>{t.admin.name}:</span> <strong>{receiptModal.receipt.studentName}</strong></div>
                                 <div style={receiptRow}><span>{t.admin.course}:</span> <strong>{receiptModal.receipt.course}</strong></div>
+                                <div style={receiptRow}><span>{t.admin.month}:</span> <strong>{receiptModal.receipt.month}</strong></div>
                                 <div style={receiptRow}><span>{t.admin.amount}:</span> <strong style={{ color: '#10b981' }}>{new Intl.NumberFormat('uz-UZ').format(receiptModal.receipt.amount)} UZS</strong></div>
                                 <div style={receiptRow}><span>{t.admin.date}:</span> <strong>{receiptModal.receipt.date}</strong></div>
+                                {receiptModal.receipt.comment && (
+                                    <div style={{ ...receiptRow, borderBottom: 'none' }}><span>{t.admin.comment}:</span> <strong style={{ fontSize: '0.8rem', fontStyle: 'italic' }}>{receiptModal.receipt.comment}</strong></div>
+                                )}
                             </div>
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
                                 <button onClick={() => window.print()} className="btn btn-outline" style={{ flex: 1 }}><FaPrint /> {t.admin.print}</button>
